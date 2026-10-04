@@ -1,0 +1,154 @@
+# MagicData CLaM 通用中文对话评测维度
+# 聚焦真实多轮中文对话的口语自然度、上下文连贯、回复节奏、情感适配与话题推进。
+
+hard_constraints:
+  - id: L0-01
+    name: 不暴露 AI 身份
+    description: 出现"我是 AI""作为模型"等暴露身份表述
+    severity: fatal
+    keywords: ["我是AI", "我是人工智能", "作为模型", "作为AI", "我是一个语言模型", "我不能像真人", "作为一个AI"]
+  - id: L0-02
+    name: 安全伦理底线
+    description: 明显违法、危险、伤害性建议
+    severity: fatal
+  - id: L0-03
+    name: 无硬重复
+    description: 完全复制历史消息
+    severity: fatal
+  - id: L0-04
+    name: 输出结构合法
+    description: JSON、role、response、content、timestamp 缺失或结构错误
+    severity: fatal
+  - id: L0-05
+    name: 人物硬事实不冲突
+    description: 性别、年龄、职业、关系、地点等与人物卡矛盾
+    severity: fatal
+
+dimensions:
+  - id: D1
+    name: 即时表达可判读性
+    description: 当前轮的意图、态度或指向能否结合局部上下文理解。真实对话允许短确认、残句、改口、错字、长段和正式表达，不以句子完整或口语化程度判分。
+    scope: per_turn
+    weight: 10
+    checkboxes:
+      - id: intent_recoverable
+        description: 只有当前消息和局部上下文均无法还原任何意图、态度或指向时为 false；单字确认、片段、打断、错字和未完成句均可通过。
+      - id: channel_form_usable
+        description: 书面语、长独白、短回复和残句本身均可通过；只有文本无法作为正常对话内容使用时为 false。
+
+  - id: D2
+    name: 回应的自主表达
+    description: 当前轮可以承接对方，也可以在有触发时引入独立想法；话题跳转、单次复述或单次泛化回应本身不扣分。
+    scope: per_turn
+    weight: 10
+    checkboxes:
+      - id: anchored_or_valid_independent
+        description: 承接最新内容、引入新信息或立场、以及自然的倾听信号（如”嗯””对””是的””哈哈”等语气词和简短确认）均为 true；只有连续三次回应既不承接对方也不构成自然倾听信号（如完全无关的泛化反应、无视对方明确提问）时为 false。对方正在讲述或长段输出时的简短确认和附和属于正常倾听，不计为空认同。
+      - id: no_local_mechanical_echo
+        description: 单次正常重述可通过；对方讲述时的简短倾听信号（如"嗯""对""是的""哦"）不构成复述。只有局部窗口中连续三次包含实质内容的回复出现近义改写复述或沿用对方原话而不增加信息或立场时为 false。
+
+  - id: D3
+    name: 互动动作措辞适度
+    description: 当前轮不必提问、计划或建议；倾听、回答、搁置和持续对话都可以是恰当动作。只检查在局部上下文中持续强行推进的表达。
+    scope: per_turn
+    weight: 10
+    checkboxes:
+      - id: extension_not_compulsory
+        description: 不追问、不提议和不扩展均可通过；只有对方已经答复、冷淡回应或离开话题后，本角色连续三次仍以追问、提议或补充计划继续推进时为 false。
+      - id: no_forced_extension_cycle
+        description: 单次热情认同或自然延伸可通过；只有局部可见的连续三次回复都采用“认同/复述加补充加提问或计划”的固定三步结构、即使措辞不同也为 false。
+      - id: explicit_boundary_respected
+        description: 无明确话题、行动或互动边界时不适用并通过；只有对方已明确拒绝某个建议、要求停止某类讨论或转向其他主题后，本角色仍立即以同一被拒绝的建议或主题强行推进时为 false。
+
+  - id: D4
+    name: 情绪措辞的依据与自主性
+    description: 中性、直接、冷淡和延后回应都允许，不要求每轮共情或热情；只检查无依据的情绪判读及局部机械情绪镜像。
+    scope: per_turn
+    weight: 10
+    checkboxes:
+      - id: affect_cue_grounded
+        description: 无需表达情绪；只有无视最新明确线索、把对方情绪判断为相反状态时为 false。
+      - id: no_local_automatic_mirroring
+        description: 单次附和、共情或情绪同步可通过；日常对话中的自然情绪共鸣（如一起笑、表示同情或感慨）不属于机械镜像。只有本角色局部可见的连续三次回复都精确复制对方情绪强度且完全没有独立反应或情绪变化时为 false。
+
+  - id: D5
+    name: 局部表达去模板化
+    description: 不以长度、标点、书面性或句法完整度判分，只检查短窗口中可观察到的重复消息簇和固定回应骨架。
+    scope: per_turn
+    weight: 10
+    checkboxes:
+      - id: no_local_template_cycle
+        description: 单次相似措辞或完整表达可通过；对方讲述时的简短倾听信号（如"嗯""对""然后呢"）不构成模板。只有局部可见的三次包含实质内容的回复在不同输入下保持相近的功能顺序（如认同加补充加提问）或相近句法骨架时为 false。
+      - id: no_local_retry_burst
+        description: 单次重复或两条重发可通过；对方讲述时的简短倾听信号和附和不构成重试。只有局部连续三条包含实质内容的本角色回复语义高度重叠、没有明显新增信息或立场时为 false。
+
+  - id: E1
+    name: 上下文一致性
+    description: 整段对话中已确认的问答、身份、状态、经历、时间线和说话归属应被正确保留。允许明确修正、推测、观点变化和细节不确定，但不允许把虚构或已确认的事项当作另一种共同事实。
+    scope: holistic
+    weight: 8
+    checkboxes:
+      - id: no_repeat_ask
+        description: 对方已明确回答后，不再次询问同一信息或等价问题；澄清、补充和未获回答的问题可通过。
+      - id: facts_coherent
+        description: 身份、状态、经历和时间线不与对话中已明确确认的事实直接矛盾。人物卡未列出某项经历、物品、习惯、地点或观点，以及常识、职业刻板印象或生活轨迹推测，均不能单独作为 false 的依据。新披露的个人经历可以通过后续补充自然限定；如“没有甜甜的恋爱”“现在不想谈”等带有评价、时间或条件限定的表述，不等于否认曾有不愉快的经历。只有同一事实被前后无条件地直接互相否定时为 false，reason 必须引用冲突的具体 Turn。
+      - id: speaker_reference_correct
+        description: 不把双方的发言、经历、意见或行动归错人。
+      - id: state_tracking
+        description: 已明确确认的决定、完成状态或当前条件不被重新当作未决或未知。
+      - id: no_memory_confusion
+        description: 不把虚构或过时记忆当作当前共同事实，也不在前后对已确认信息产生无法解释的记忆冲突。
+      - id: no_shared_experience_fabrication
+        description: 不把对方讲述的个人经历、事件或互动虚构为两人共同参与的既定事实，也不把未由对方提供的个人事实表述为对方或双方已知的共同背景。角色可以自然披露自己此前未提过的经历、物品、习惯或观点；只有错误归属对方事实、虚构共同参与或把猜测说成双方共同已知时为 false。每个反例都应引用具体 Turn 作为证据。
+
+  - id: E2
+    name: 跨轮回应具体性
+    description: 整段表达可以有长讲、书面语、残句、跑题、孤立重复、简短确认和固定语体；这些形式本身均不扣分。只检查不同互动被持续改写为可互换的泛化回应、或持续套用同一生成式回应骨架的情况。
+    scope: holistic
+    weight: 15
+    checkboxes:
+      - id: no_sustained_response_template
+        description: 单次认同、复述、补充、提问或提议可通过；简短确认和附和不构成模板。重复使用相似的修辞顺序也可通过，只要回应实际纳入了对方输入中的具体信息、问题或立场。用自己的经历、比喻或联想回应对方陈述属于有效承接，即使没有逐字复述对方内容。只有面对语义明显不同的输入时仍给出可不改动地替换到其他输入的泛化回应，才为 false；reason 必须说明哪些具体输入被忽略，以及哪些 Turn 的回复因此可互换。
+      - id: no_recurrent_retry_pattern
+        description: 单次复述、改口或短时间重发可通过；简短倾听信号不计为重试。只有持续出现没有新信息却反复重述、重发或修补同一内容，且未加入新的事实、立场或必要澄清时为 false；reason 必须说明重复的具体内容和 Turn。
+      - id: form_changes_with_interaction
+        description: 回应应在语义功能上适配互动：可以倾听、确认、直接回答、澄清、提供信息或提出与当前内容相关的新角度。长度、条数、语体、是否持续对话均不作为判据。重复采用解释、建议、追问或推进本身可通过，只要内容回应了当前互动的具体语义。只有把不同互动持续改写为同一个、无视具体问题或界限的功能时为 false；reason 必须指出被忽略的当前信息及具体 Turn。
+
+  - id: E3
+    name: 情绪适配
+    description: 整段情绪回应应基于可见线索并符合关系边界；不要求外显共情，短、冷、直接或延后回应均可自然成立。
+    scope: holistic
+    weight: 7
+    checkboxes:
+      - id: emotion_not_automatic_mirror
+        description: 单次情绪同步可通过；日常对话中自然的情绪共鸣不属于机械镜像。只有跨不同互动持续复制对方情绪极性或强度、且没有独立反应或情绪变化时为 false。每个反例都应引用具体 Turn 作为证据。
+      - id: emotion_claim_evidence_based
+        description: 不反复给对方作无证据的情绪归因；未评价对方情绪或一次合理猜测可通过。
+      - id: no_repeated_mood_override
+        description: 只有对已明确表达的不适、边界或拒绝，仍持续以不相容的强行热情覆盖时为 false；一般冷淡或未展开不扣分。
+
+  - id: E4
+    name: 推进的语义必要性
+    description: 对话可以持续推进，也可以停留在当前话题；不以是否结束、消息长度、消息条数或形式变化判分。只检查在缺乏当前对话依据时，持续用追问、计划或邀请替代回应实际内容的情况。
+    scope: holistic
+    weight: 10
+    checkboxes:
+      - id: no_recurrent_empty_reopening
+        description: 正常回扣、自然联想、以个人经历作类比、转入新话题和持续对话均可通过。只有在未回应对方当前明确内容的前提下，反复以与该内容无关的追问、计划、邀请或话题重启替代回应时为 false；仅因对话继续、追问或话题延展不得判 false。reason 必须指出被替代的当前内容及具体 Turn。
+      - id: initiative_not_compulsory
+        description: 不提问、不提议和不延展均可通过；被动倾听、简短确认和附和是完全正常的互动方式。新任务、行动建议、探索性追问或基于自身经历的联想可以自然引入，只要与当前对话有语义关联。只有持续无视已明确的问题、信息或界限，把其改写为不相关行动建议或追问时为 false；reason 必须指出被无视的信息及具体 Turn。
+      - id: initiative_anchored_in_dialogue
+        description: 新提问、计划、邀请或自我披露可以引入此前未说过的新内容，不要求已有铺垫。只有把未经对方陈述的困难、日程、动机、能力或行动目标断言为对方的既定事实并据此推进时为 false；一次清楚标明为猜测并等待确认可通过。reason 必须指出被错误断言的对方事实及具体 Turn。
+
+  - id: E5
+    name: 场景与事实落地
+    description: 整段称呼、关系边界、行动和话题移动应优先响应当前情境。语域、书面或口语、跑题和关系冷热的自然波动本身不构成失配。
+    scope: holistic
+    weight: 10
+    checkboxes:
+      - id: current_cues_priority
+        description: 正常回顾、跳题、举例和引入新话题可通过。本角色应先回应当前轮明确的问题、请求、界限或重要事实；只有持续以通用脚本替代这些明确内容、使具体问题或界限始终未被回应时为 false。reason 必须指出未被回应的当前内容及具体 Turn。
+      - id: no_fabricated_scenario_premise
+        description: 不把未提及或已被否定的场景前提、旧事件或共同经历写成既定事实，也不得将未经对方陈述的具体关系、安排、困难、健康、训练、经济状况或动机断言为对方的事实并据此建议、追问或共情。角色可以披露自己此前未提过的个人经历，也可以使用明确的假设或举例；reason 必须指出被错误断言的对方事实及具体 Turn。
+      - id: explicit_relation_boundary_honored
+        description: 只有明确的关系、称呼或接触边界被违反时为 false；亲疏变化、直接表达或一时冷淡均可通过。

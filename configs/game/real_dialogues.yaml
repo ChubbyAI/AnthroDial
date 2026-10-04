@@ -1,0 +1,60 @@
+# Set your own OpenAI-compatible endpoints and environment variables.
+llm:
+  base_url: http://localhost:8000/v1
+  default_model: Qwen3.6-35B-A3B
+  extra_body: {}
+  models:
+    benchmark_judge: Judge-Qwen3.5-397B-A17B
+    ref_partner: Qwen3.5-397B-A17B
+    persona_chat: Qwen3.5-397B-A17B
+    memory_updater: Qwen3.5-397B-A17B
+    compressor: Compressor-Qwen3.5-397B-A17B
+  temperature:
+    benchmark_judge: 0.0
+    ref_partner: 0.9
+    persona_chat: 0.7
+    memory_updater: 0.2
+    compressor: 0.2
+  request:
+    max_retries: 10
+    timeout: 300
+  model_configs:
+    Judge-Qwen3.5-397B-A17B:
+      enable_thinking: false
+      api_model: Qwen3.5-397B-A17B
+      base_url: http://localhost:8000/v1
+      api_key_env: JUDGE_API_KEY
+    Qwen3.5-397B-A17B:
+      enable_thinking: false
+      base_url: http://localhost:8000/v1
+      api_key_env: OPENAI_API_KEY
+    Compressor-Qwen3.5-397B-A17B:
+      enable_thinking: false
+      api_model: Qwen3.5-397B-A17B
+      base_url: http://localhost:8000/v1
+      api_key_env: OPENAI_API_KEY
+  api_key_env: OPENAI_API_KEY
+paths:
+  data_dir: data/game_benchmark
+  personas_dir: data/game_benchmark/personas
+  scenarios_dir: data/game_benchmark/scenarios
+  outputs_dir: runs/game/outputs
+  results_dir: runs/game/results
+  skills_dir: data/game_benchmark/skills
+  prompt_components_dir: src/chat/prompts/game
+session:
+  max_turns: 20
+benchmark:
+  mode: real_replay
+  tested_model: real_dialogues
+  real_dialogues_path: data/game_benchmark/dialogues.jsonl
+  real_min_turns: 4
+  concurrency: 4
+  quiet: false
+  force: false
+  sample: null
+  per_turn_weight: 0.5
+  holistic_weight: 0.5
+  rubric_path: data/game_benchmark/rubric.yaml
+  bindings_path: data/game_benchmark/bindings.yaml
+  domain: game

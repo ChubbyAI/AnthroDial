@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.env.*
+!.env.example
+.DS_Store
+runs/
+apps/benchmark/outputs/
+apps/benchmark/results/
+data/*/personas/
+data/*/scenarios/
+data/*/bindings.yaml
+data/*/dialogues.jsonl
+*.log

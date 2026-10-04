@@ -1,0 +1,84 @@
+# Set your own OpenAI-compatible endpoints and environment variables.
+llm:
+  base_url: http://localhost:8000/v1
+  default_model: Qwen3.6-35B-A3B
+  extra_body: {}
+  models:
+    benchmark_judge: Judge-Qwen3.5-397B-A17B
+    ref_partner: Qwen3.5-397B-A17B
+    persona_chat: Qwen3.6-35B-A3B
+    memory_updater: Qwen3.6-35B-A3B
+    compressor: Compressor-Qwen3.5-397B-A17B
+  temperature:
+    benchmark_judge: 0.0
+    ref_partner: 0.9
+    persona_chat: 0.7
+    memory_updater: 0.2
+    compressor: 0.2
+  request:
+    max_retries: 10
+    timeout: 300
+  model_configs:
+    Qwen3.6-35B-A3B:
+      enable_thinking: false
+      base_url: http://localhost:8000/v1
+      api_key_env: OPENAI_API_KEY
+    Qwen3.5-397B-A17B:
+      enable_thinking: false
+      base_url: http://localhost:8000/v1
+      api_key_env: OPENAI_API_KEY
+    Compressor-Qwen3.5-397B-A17B:
+      enable_thinking: false
+      api_model: Qwen3.5-397B-A17B
+      base_url: http://localhost:8000/v1
+      api_key_env: OPENAI_API_KEY
+    Judge-Qwen3.5-397B-A17B:
+      enable_thinking: false
+      api_model: Qwen3.5-397B-A17B
+      base_url: http://localhost:8000/v1
+      api_key_env: JUDGE_API_KEY
+  api_key_env: OPENAI_API_KEY
+paths:
+  data_dir: data/clam_benchmark
+  personas_dir: data/clam_benchmark/personas
+  scenarios_dir: data/clam_benchmark/scenarios
+  outputs_dir: runs/clam/outputs
+  results_dir: runs/clam/results
+  prompt_components_dir: src/chat/prompts/clam
+  skills_dir: data/clam_benchmark/skills
+session:
+  max_turns: 100
+  reply_max_segments: 4
+  max_consecutive_same_speaker: 4
+  min_send_interval_ms: 3000
+  consecutive_delay_schedule_ms:
+  - 3000
+  - 3000
+  - 5000
+  - 20000
+  - 60000
+  - 180000
+  - 600000
+  - 3600000
+  - 43200000
+  - 86400000
+compression:
+  fold_interval: 20
+  keep_recent_turns: 10
+  fold_max_chars: 300
+memory:
+  max_points_per_partner: 12
+benchmark:
+  tested_model: Qwen3.6-35B-A3B
+  domain: clam
+  sample: null
+  concurrency: 4
+  quiet: false
+  enable_memory: false
+  force: false
+  self_play: true
+  single_role: false
+  per_turn_weight: 0.5
+  holistic_weight: 0.5
+  rubric_path: data/clam_benchmark/rubric.yaml
+  bindings_path: data/clam_benchmark/bindings.yaml
