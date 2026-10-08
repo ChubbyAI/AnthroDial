@@ -4,9 +4,9 @@ Code for evaluating human-like dialogue, with historical results for the Everyda
 
 **Website:** [https://chubbyai.github.io/AnthroDial/](https://chubbyai.github.io/AnthroDial/)
 
-![Figure 2: Overview of the AnthroDial framework](docs/assets/anthrodial-framework.png)
+![AnthroDial framework overview](docs/assets/anthrodial-framework.png)
 
-*Figure 2. Overview of the AnthroDial framework.*
+**AnthroDial framework overview**
 
 ## Results
 
