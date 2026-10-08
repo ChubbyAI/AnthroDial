@@ -6,7 +6,7 @@ Code for evaluating human-like dialogue, with historical results for the Everyda
 
 ![AnthroDial framework overview](docs/assets/anthrodial-framework.png)
 
-**AnthroDial framework overview**
+<p align="center"><strong>AnthroDial framework overview</strong></p>
 
 ## Results
 
