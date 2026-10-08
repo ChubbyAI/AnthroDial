@@ -1,0 +1,255 @@
+[
+  [
+    {
+      "model_name": "Qwen3.5-397B-A17B",
+      "ref_model": "Qwen3.5-397B-A17B",
+      "judge_model": "Judge-Qwen3.5-397B-A17B",
+      "case_count": 100,
+      "scenario_count": 50,
+      "evaluation_scope": "both_sides",
+      "acc_at_thresholds": {
+        "85": 0.86,
+        "90": 0.8,
+        "95": 0.44
+      }
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B-think",
+      "ref_model": "Qwen3.5-397B-A17B",
+      "judge_model": "Judge-Qwen3.5-397B-A17B",
+      "case_count": 100,
+      "scenario_count": 50,
+      "evaluation_scope": "both_sides",
+      "acc_at_thresholds": {
+        "85": 0.76,
+        "90": 0.52,
+        "95": 0.22
+      }
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B",
+      "ref_model": "Qwen3.5-397B-A17B",
+      "judge_model": "Judge-Qwen3.5-397B-A17B",
+      "case_count": 100,
+      "scenario_count": 50,
+      "evaluation_scope": "both_sides",
+      "acc_at_thresholds": {
+        "85": 0.6,
+        "90": 0.42,
+        "95": 0.14
+      }
+    },
+    {
+      "model_name": "claude-opus-4-6-thinking",
+      "ref_model": "Qwen3.5-397B-A17B",
+      "judge_model": "Judge-Qwen3.5-397B-A17B",
+      "case_count": 100,
+      "scenario_count": 50,
+      "evaluation_scope": "both_sides",
+      "acc_at_thresholds": {
+        "85": 0.94,
+        "90": 0.9,
+        "95": 0.78
+      }
+    },
+    {
+      "model_name": "deepseek-v4-flash",
+      "ref_model": "Qwen3.5-397B-A17B",
+      "judge_model": "Judge-Qwen3.5-397B-A17B",
+      "case_count": 100,
+      "scenario_count": 50,
+      "evaluation_scope": "both_sides",
+      "acc_at_thresholds": {
+        "85": 0.94,
+        "90": 0.88,
+        "95": 0.52
+      }
+    },
+    {
+      "model_name": "gemini-3.5-flash-preview",
+      "ref_model": "Qwen3.5-397B-A17B",
+      "judge_model": "Judge-Qwen3.5-397B-A17B",
+      "case_count": 100,
+      "scenario_count": 50,
+      "evaluation_scope": "both_sides",
+      "acc_at_thresholds": {
+        "85": 0.98,
+        "90": 0.96,
+        "95": 0.76
+      }
+    },
+    {
+      "model_name": "gpt-5.5",
+      "ref_model": "Qwen3.5-397B-A17B",
+      "judge_model": "Judge-Qwen3.5-397B-A17B",
+      "case_count": 100,
+      "scenario_count": 50,
+      "evaluation_scope": "both_sides",
+      "acc_at_thresholds": {
+        "85": 0.64,
+        "90": 0.54,
+        "95": 0.3
+      }
+    }
+  ],
+  [
+    {
+      "model_name": "Qwen3.5-397B-A17B",
+      "ref_model": "Qwen3.5-397B-A17B",
+      "judge_model": "Judge-Qwen3.5-397B-A17B",
+      "case_count": 100,
+      "scenario_count": 50,
+      "evaluation_scope": "both_sides",
+      "acc_at_thresholds": {
+        "85": 0.36,
+        "90": 0.24,
+        "95": 0.16
+      }
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B",
+      "ref_model": "Qwen3.5-397B-A17B",
+      "judge_model": "Judge-Qwen3.5-397B-A17B",
+      "case_count": 100,
+      "scenario_count": 50,
+      "evaluation_scope": "both_sides",
+      "acc_at_thresholds": {
+        "85": 0.08,
+        "90": 0.04,
+        "95": 0.0
+      }
+    },
+    {
+      "model_name": "claude-opus-4-6-thinking",
+      "ref_model": "Qwen3.5-397B-A17B",
+      "judge_model": "Judge-Qwen3.5-397B-A17B",
+      "case_count": 100,
+      "scenario_count": 50,
+      "evaluation_scope": "both_sides",
+      "acc_at_thresholds": {
+        "85": 0.98,
+        "90": 0.96,
+        "95": 0.86
+      }
+    },
+    {
+      "model_name": "deepseek-v4-flash",
+      "ref_model": "Qwen3.5-397B-A17B",
+      "judge_model": "Judge-Qwen3.5-397B-A17B",
+      "case_count": 100,
+      "scenario_count": 50,
+      "evaluation_scope": "both_sides",
+      "acc_at_thresholds": {
+        "85": 0.78,
+        "90": 0.68,
+        "95": 0.52
+      }
+    },
+    {
+      "model_name": "gemini-3.5-flash",
+      "ref_model": "Qwen3.5-397B-A17B",
+      "judge_model": "Judge-Qwen3.5-397B-A17B",
+      "case_count": 100,
+      "scenario_count": 50,
+      "evaluation_scope": "both_sides",
+      "acc_at_thresholds": {
+        "85": 0.9,
+        "90": 0.84,
+        "95": 0.76
+      }
+    },
+    {
+      "model_name": "gpt-5.5",
+      "ref_model": "Qwen3.5-397B-A17B",
+      "judge_model": "Judge-Qwen3.5-397B-A17B",
+      "case_count": 100,
+      "scenario_count": 50,
+      "evaluation_scope": "both_sides",
+      "acc_at_thresholds": {
+        "85": 0.96,
+        "90": 0.94,
+        "95": 0.9
+      }
+    }
+  ],
+  [
+    {
+      "model_name": "Qwen3.5-397B-A17B",
+      "ref_model": "Qwen3.5-397B-A17B",
+      "judge_model": "Judge-Qwen3.5-397B-A17B",
+      "case_count": 118,
+      "scenario_count": 59,
+      "evaluation_scope": "both_sides",
+      "acc_at_thresholds": {
+        "85": 0.2542,
+        "90": 0.0678,
+        "95": 0.0
+      }
+    },
+    {
+      "model_name": "Qwen3.6-35B-A3B",
+      "ref_model": "Qwen3.5-397B-A17B",
+      "judge_model": "Judge-Qwen3.5-397B-A17B",
+      "case_count": 118,
+      "scenario_count": 59,
+      "evaluation_scope": "both_sides",
+      "acc_at_thresholds": {
+        "85": 0.1017,
+        "90": 0.0169,
+        "95": 0.0
+      }
+    },
+    {
+      "model_name": "claude-opus-4-6-thinking",
+      "ref_model": "Qwen3.5-397B-A17B",
+      "judge_model": "Judge-Qwen3.5-397B-A17B",
+      "case_count": 118,
+      "scenario_count": 59,
+      "evaluation_scope": "both_sides",
+      "acc_at_thresholds": {
+        "85": 0.2373,
+        "90": 0.0508,
+        "95": 0.0
+      }
+    },
+    {
+      "model_name": "deepseek-v4-flash",
+      "ref_model": "Qwen3.5-397B-A17B",
+      "judge_model": "Judge-Qwen3.5-397B-A17B",
+      "case_count": 118,
+      "scenario_count": 59,
+      "evaluation_scope": "both_sides",
+      "acc_at_thresholds": {
+        "85": 0.0,
+        "90": 0.0,
+        "95": 0.0
+      }
+    },
+    {
+      "model_name": "gemini-3.5-flash-preview",
+      "ref_model": "Qwen3.5-397B-A17B",
+      "judge_model": "Judge-Qwen3.5-397B-A17B",
+      "case_count": 118,
+      "scenario_count": 59,
+      "evaluation_scope": "both_sides",
+      "acc_at_thresholds": {
+        "85": 0.2881,
+        "90": 0.1356,
+        "95": 0.0339
+      }
+    },
+    {
+      "model_name": "gpt-5.5",
+      "ref_model": "Qwen3.5-397B-A17B",
+      "judge_model": "Judge-Qwen3.5-397B-A17B",
+      "case_count": 118,
+      "scenario_count": 59,
+      "evaluation_scope": "both_sides",
+      "acc_at_thresholds": {
+        "85": 0.0,
+        "90": 0.0,
+        "95": 0.0
+      }
+    }
+  ]
+]
