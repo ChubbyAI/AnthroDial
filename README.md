@@ -59,4 +59,4 @@ docs/                Metric definitions, input formats, and release scope
 
 ## License
 
-[MIT](LICENSE). This license does not cover data that is not distributed with this repository or external model weights.
+This project is licensed under the [Apache License 2.0](LICENSE). This license does not cover data that is not distributed with this repository or external model weights.
