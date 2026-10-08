@@ -2,6 +2,12 @@
 
 Code for evaluating human-like dialogue, with historical results for the Everyday Chat, Long-Horizon Character, and Game Interaction datasets using **Qwen3.5-397B-A17B as the judge**.
 
+**Website:** [https://chubbyai.github.io/AnthroDial/](https://chubbyai.github.io/AnthroDial/)
+
+![Figure 2: Overview of the AnthroDial framework](docs/assets/anthrodial-framework.png)
+
+*Figure 2. Overview of the AnthroDial framework.*
+
 ## Results
 
 | Dataset | Models | Scenarios per model | Evaluated cases per model | Results |
